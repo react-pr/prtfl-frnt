@@ -1,11 +1,15 @@
 import { Layout } from '@/components/Layout/Layout'
 import { IFormData } from '@/interfaces/Interfaces'
 import { SendMainService } from '@/services/sendMail/SendMailService'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { Button } from './contactComponents/Button'
+import { Label } from './contactComponents/Label'
+import { Required } from './contactComponents/Required'
+import { SendMailStatus } from './contactComponents/SendMailStatus'
 
 export const Contact = () => {
-	const [response, setResponse] = useState<string>('')
+	const [mailSending, setMailSending] = useState<string>('')
 	const {
 		register,
 		handleSubmit,
@@ -14,48 +18,52 @@ export const Contact = () => {
 	} = useForm<IFormData>({
 		mode: 'onChange',
 	})
-	useEffect(() => {
-		const getResult = async () => {
-			const result = await SendMainService.getRequest()
-			setResponse(result)
-			console.log(response)
-		}
-		getResult()
-	}, [])
 	const formSubmit: SubmitHandler<IFormData> = async data => {
 		await SendMainService.postData(data)
-		const message = await SendMainService.postData(data)
-		console.log(message)
+		SendMainService.postData(data).then(responseMessage => {
+			setMailSending(responseMessage)
+		})
 		reset()
 	}
 	return (
 		<Layout>
-			<form onSubmit={handleSubmit(formSubmit)}>
-				<div>
-					<label>Name</label>
+			<form
+				className='mt-[25px] text-center'
+				onSubmit={handleSubmit(formSubmit)}
+			>
+				<div className='mb-[10px]'>
+					<Label labelName='Name' />
 					<input
+						placeholder='Enter your n@me'
+						className='text-[14px] text-[#000] font-semibold max-w-[400px] w-[100%] mx-auto outline-none focus:opacity-100 transition-all ease-in-out border-[2px] border-[#000] opacity-20'
 						{...register('name', { required: 'Name is required!' })}
 						type='text'
 					/>
-					{errors.name?.message && <p>{errors.name.message}</p>}
+					{errors.name?.message && <Required error={errors.name.message} />}
 				</div>
-				<div>
-					<label>Email</label>
+				<div className='mb-[10px]'>
+					<Label labelName='Email' />
 					<input
+						placeholder='Enter your em@il'
+						className='text-[14px] text-[#000] font-semibold max-w-[400px] w-[100%] mx-auto outline-none focus:opacity-100 transition-all ease-in-out border-[2px] border-[#000] opacity-20'
 						{...register('email', { required: 'Email is required!' })}
 						type='email'
 					/>
-					{errors.email?.message && <p>{errors.email.message}</p>}
+					{errors.email?.message && <Required error={errors.email.message} />}
 				</div>
-				<div>
-					<label>Message</label>
-					<input
+				<div className='mb-[10px]'>
+					<Label labelName='Message' />
+					<textarea
+						placeholder='Enter your mess@ge'
+						className='text-[14px] text-[#000] font-semibold max-w-[400px] w-[100%] mx-auto outline-none focus:opacity-100 transition-all ease-in-out border-[2px] border-[#000] opacity-20'
 						{...register('message', { required: 'Message is required!' })}
-						type='text'
 					/>
-					{errors.message?.message && <p>{errors.message.message}</p>}
+					{errors.message?.message && (
+						<Required error={errors.message.message} />
+					)}
 				</div>
-				<button>Submit</button>
+				<Button buttonTitle='Submit' />
+				<SendMailStatus status={mailSending} />
 			</form>
 		</Layout>
 	)

@@ -7,12 +7,6 @@ export const SendMainService = {
 			`${import.meta.env.VITE_BACK_END_URL}sending/`,
 			data
 		)
-		return request.data
-	},
-	async getRequest() {
-		const response = await axios.get<string>(
-			`${import.meta.env.VITE_BACK_END_URL}test-get/`
-		)
-		return response.data
+		return request.status === 200 ? 'Email sending!' : 'Something went wrong'
 	},
 }
