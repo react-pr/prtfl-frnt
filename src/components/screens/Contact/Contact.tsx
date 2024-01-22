@@ -22,9 +22,6 @@ export const Contact = () => {
 		setIsSending(true)
 		await SendMainService.postData(data)
 		setMailSending(await SendMainService.postData(data))
-		SendMainService.postData(data).then(responseMessage => {
-			setMailSending(responseMessage)
-		})
 		setIsSending(false)
 		reset()
 	}

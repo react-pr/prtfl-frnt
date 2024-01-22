@@ -24,7 +24,7 @@ export const Projects = () => {
 						description={project.description}
 						github_link={project.github_link}
 						demo_link={project.demo_link}
-						image_link={`../../../../public/project${project.id}.png`}
+						image_link={`https://prtfl-frntnd.onrender.com/project${project.id}.png`}
 						tags={project.tags}
 					/>
 				))}
