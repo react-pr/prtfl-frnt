@@ -1,5 +1,10 @@
 import { ReactNode } from 'react'
 
+export interface ContactLink {
+	link: string
+	icon: string
+}
+
 export interface MenuPart {
 	id: number
 	name: string

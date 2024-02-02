@@ -12,8 +12,8 @@ export const MenuItem = ({ id, link, name, component }: MenuPart) => {
 			key={id}
 			className={
 				location.pathname === link
-					? 'text-green-600 mr-[20px] hover:translate-y-[-5px] transition-all ease-in-out'
-					: 'text-[#000] mr-[20px] hover:translate-y-[-5px] transition-all ease-in-out'
+					? 'text-green-600 mr-[20px] hover:hover:text-green-400 transition-all ease-in-out'
+					: 'text-[#000] mr-[20px] hover:text-green-400 transition-all ease-in-out'
 			}
 		>
 			<Link to={link} className='font-bold flex items-center gap-[5px]'>

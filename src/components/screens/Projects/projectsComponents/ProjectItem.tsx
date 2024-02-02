@@ -14,8 +14,8 @@ export const ProjectItem = ({
 	tags,
 }: IProjects) => {
 	return (
-		<div className='max-w-[300px] w-[100%] rounded-lg border-[#000] border-solid border-[1px] hover:border-green-600 transition-all ease-in-out'>
-			<img src={image_link} alt={name} className='rounded-t-lg' />
+		<div className='mt-[100px] p-[5px] flex gap-[20px] items-center w-[100%] max-w-[1000px] mx-auto rounded-lg border-[#000] border-solid border-[1px] hover:border-green-600 transition-all ease-in-out'>
+			<img width={600} src={image_link} alt={name} className='rounded-lg' />
 			<div className='p-[5px]'>
 				<Title title={name} />
 				<Description description={description} />

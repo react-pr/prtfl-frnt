@@ -1,21 +1,11 @@
-import { MenuPart } from '@/interfaces/Interfaces'
-import { HeaderServices } from '@/services/headerServices/HeaderServices'
-import { useEffect, useState } from 'react'
 import { ItemsWrap } from './headerComponents/ItemsWrap'
 import { MenuItem } from './headerComponents/MenuItem'
+import { HeaderData } from './headerData/HeaderData'
 
 export const Header = () => {
-	const [menuNavs, setMenuNavs] = useState<MenuPart[]>([])
-	useEffect(() => {
-		const getAllPartsOfMenu = async () => {
-			const allMenuPars = await HeaderServices.getAllBarsPartitions()
-			setMenuNavs(allMenuPars)
-		}
-		getAllPartsOfMenu()
-	}, [])
 	return (
 		<ItemsWrap>
-			{menuNavs.map(part => (
+			{HeaderData.map(part => (
 				<MenuItem
 					key={part.id}
 					id={part.id}
